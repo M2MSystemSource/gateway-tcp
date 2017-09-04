@@ -31,6 +31,7 @@ module.exports = (app) => {
   var q = async.queue((position, next) => {
     let sendAttemtps = 0
     const send = () => {
+      console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx')
       // intentos de envío fallidos
       sendAttemtps++
 

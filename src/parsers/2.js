@@ -36,12 +36,10 @@ module.exports = (app) => {
   }
 
   return (data) => {
-    console.log('93i33i3i3i3i3')
     const t1 = data.split('|')
 
     try {
       const t2 = t1[1].split(',')
-      console.log('t2', t2)
       // 6 fix quality; 7 number satelites; 8 hdop; 9 altitud, 10 high of geoid
       const position = {
         _device: t1[0],

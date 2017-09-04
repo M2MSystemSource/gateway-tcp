@@ -58,10 +58,7 @@ module.exports = (app) => {
       }
 
       app.legitimate(position, (err, position) => {
-        console.log('33')
         if (err || !position) {
-          console.log('44', err)
-          console.log('55', position)
           // simplemente despreciamos la posición, pero se debería hacer algo,
           // por ejemplo informar al cliente vía mqtt de que su posición no
           // es válida (enviar un mensaje al canal personal del dispositivo)
