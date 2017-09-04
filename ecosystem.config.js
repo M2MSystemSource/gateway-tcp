@@ -11,12 +11,12 @@ module.exports = {
     max_restarts: 0,
     exec_mode: 'fork',
     env: {
-      PORT: 3020,
+      PORT: 9000,
       DEBUG: 'gwtcp*',
       NODE_ENV: 'production'
     },
     env_production: {
-      PORT: 3020,
+      PORT: 9000,
       NODE_ENV: 'production'
     }
   }],
