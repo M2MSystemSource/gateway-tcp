@@ -5,7 +5,7 @@ class Gateway extends EventEmitter {
   constructor () {
     super()
 
-    this.debug = require('debug')('gw')
+    this.debug = require('debug')('gwtpc')
     this.env = process.env.NODE_ENV || 'development'
     this.conf = require(path.join(__dirname, '/conf', this.env))
 
