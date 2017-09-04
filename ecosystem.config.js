@@ -17,6 +17,7 @@ module.exports = {
     },
     env_production: {
       PORT: 9000,
+      DEBUG: 'gwtcp*',
       NODE_ENV: 'production'
     }
   }],

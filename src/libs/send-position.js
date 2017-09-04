@@ -55,6 +55,7 @@ module.exports = (app) => {
 
       const req = app.api.post('/v1/tracking/position', args, (data, response) => {
         if (response.statusCode !== 200) {
+          console.log('fail')
           // respuesta inválida, volvemos a enviar
           app.debug('api response fail')
           setTimeout(send, 1000)
@@ -68,6 +69,7 @@ module.exports = (app) => {
       // si hay un error volvemos a realizar el envío despues de 1 segundo
       req.on('error', (err) => {
         app.debug('err %s', err)
+        console.log('app', err)
         setTimeout(send, 1000)
       })
     }
