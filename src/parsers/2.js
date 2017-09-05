@@ -53,7 +53,7 @@ module.exports = (app) => {
           extra: '',
           gps: t2[8] || -1,
           gsm: -1,
-          loc: [parseFloat(t2[2]), parseFloat(t2[4])],
+          loc: [parseFloat(t2[4]), parseFloat(t2[2])],
           speed: -1
         }
       }
