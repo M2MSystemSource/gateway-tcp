@@ -50,10 +50,17 @@ module.exports = (app) => {
 
       // utilizamos el parser para convertir la trama en una posición
       const position = parser(data)
-      console.log('position', position)
-      if (!position) {
-        conn.write('ko|invalid position')
-        console.log('ko - invalid position')
+      if (!position || typeof position === 'string') {
+        let text = position || 'invalid position'
+        conn.write('ko|' + text)
+        console.log('ko - ' + text)
+        return
+      }
+
+      if (position.data.loc[0] === 0 && position.data.loc[1] === 0) {
+        let text = 'ko|invalid-location'
+        conn.write(text)
+        console.log(text)
         return
       }
 

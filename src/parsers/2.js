@@ -40,6 +40,7 @@ module.exports = (app) => {
 
     try {
       const t2 = t1[1].split(',')
+
       // 6 fix quality; 7 number satelites; 8 hdop; 9 altitud, 10 high of geoid
       const position = {
         _device: t1[0],
