@@ -34,6 +34,8 @@ module.exports = (app) => {
     function onConnData (data) {
       console.log('connection data from %s: %j', remoteAddress, data)
 
+      data = data.replace(',\u001a', '')
+
       if (!preValidate(data)) {
         conn.write('ko|prevalidation - missing device ID?')
         console.log('ko - prevalidation')
