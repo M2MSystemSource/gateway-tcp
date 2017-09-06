@@ -48,7 +48,7 @@ module.exports = (app) => {
         servertime: Date.now(),
         data: {
           accel: [0, 0, 0],
-          alt: t2[9] || -1,
+          alt: parseFloat(t2[9]) || -1,
           battery: -1,
           cog: -1,
           extra: '',
