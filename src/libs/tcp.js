@@ -29,6 +29,7 @@ module.exports = (app) => {
 
     conn.on('data', onConnData)
     conn.once('close', onConnClose)
+    conn.once('end', onConnEnd)
     conn.on('error', onConnError)
 
     function onConnData (data) {
@@ -37,6 +38,7 @@ module.exports = (app) => {
 
       if (!preValidate(data)) {
         conn.write('ko|prevalidation - missing device ID?')
+        conn.destroy()
         console.log('ko - prevalidation')
         return
       }
@@ -85,6 +87,10 @@ module.exports = (app) => {
 
     function onConnClose () {
       console.log('connection from %s closed', remoteAddress)
+    }
+
+    function onConnEnd () {
+      console.log('connection from %s ended', remoteAddress)
     }
 
     function onConnError (err) {
