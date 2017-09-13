@@ -80,7 +80,6 @@ module.exports = (app) => {
         app.watcher.post(position)
 
         conn.write('okis')
-        conn.close()
       })
     }
 
