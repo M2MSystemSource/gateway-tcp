@@ -79,8 +79,8 @@ module.exports = (app) => {
         // Envia la posición al servidor de watchers
         app.watcher.post(position)
 
-        console.log('okis')
         conn.write('okis')
+        conn.close()
       })
     }
 
