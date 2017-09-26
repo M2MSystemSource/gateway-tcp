@@ -40,6 +40,7 @@ module.exports = (app) => {
         conn.write('ko|prevalidation - missing device ID?')
         conn.destroy()
         console.log('ko - prevalidation')
+        conn.destory()
         return
       }
 
@@ -48,6 +49,7 @@ module.exports = (app) => {
       if (!parser) {
         conn.write('ko|invalid plot')
         console.log('ko - invalid plot, no parser found')
+        conn.destory()
         return
       }
 
@@ -57,6 +59,7 @@ module.exports = (app) => {
         let text = position || 'invalid position'
         conn.write('ko|' + text)
         console.log('ko - ' + text)
+        conn.destory()
         return
       }
 
@@ -64,6 +67,7 @@ module.exports = (app) => {
         let text = 'ko|invalid-location'
         conn.write(text)
         console.log(text)
+        conn.destory()
         return
       }
 
@@ -72,6 +76,7 @@ module.exports = (app) => {
           // simplemente despreciamos la posición, pero se debería hacer algo,
           // por ejemplo informar al cliente vía mqtt de que su posición no
           // es válida (enviar un mensaje al canal personal del dispositivo)
+          conn.destory()
           return app.debug('Position not legitimate %s', err)
         }
 
