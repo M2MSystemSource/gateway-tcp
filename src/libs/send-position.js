@@ -5,8 +5,8 @@ module.exports = (app) => {
    * Envía una posición a la API de M2MSS. Se utiliza async.queue para crear
    * una cola de trabajo.
    *
-   * Los mensajes mqtt llegan al subscriber {@link module:topic/track} y este,
-   * una vez validado, nos lo envía aquí. Cada mensaje que entra se añade a la
+   * Los trackers envían posiciones al servidor (libs/tcp.js) y este,
+   * tras validarla, nos lo envía aquí. Cada mensaje que entra se añade a la
    * cola de trabajo (q.push). La cola ejecuta un mensaje tras otro, en orden.
    *
    * Dentro de la cola los mensajes se envia a la api utilizando el cliente http
@@ -14,10 +14,10 @@ module.exports = (app) => {
    * del servidor es válida, entonces se procede con el siguiente de la cola.
    *
    * Si la api no acepta la petición se volverá a reenviar sin pasar a la siguiente.
-   * Mientras tanto se seguirán recibiendo mensajes de mqtt que se irán añadiendo
+   * Mientras tanto se seguirán recibiendo posiciones del tracker que se irán añadiendo
    * a la cola a la espera de que salga la posición encallada. Si el servidor de Apis
-   * está caído, el límite de tareas que podrá alojar la cola de trabajo dependerá
-   * de la memoría ram de que disponga.
+   * está caído, el límite de mensajes que podrá alojar la cola de trabajo dependerá
+   * de la memoría ram de que disponga el servidor.
    *
    * module  send-position
    * @param  {Object} position Position
@@ -26,6 +26,15 @@ module.exports = (app) => {
     q.push(position)
   }
 
+  /**
+   * Almacena la fecha de la ultima posición recibida. Cuando se recibe una nueva
+   * se verifica que la fecha sea superior a la anterior, en caso negativo indicaría
+   * que el tracker (o el agente externo que envía las posiciones a este servidor)
+   * nos está enviando las posiciones de forma desordenada (las más nuevas antes
+   * que las más viejas). A efectos poco podemos hacer más que almacenar un error
+   * en algun sitio (cosa que no se hace) para alertar al responsable del firmware
+   * del tracker de que algo no va bien.
+   */
   let lastTime
 
   var q = async.queue((position, next) => {

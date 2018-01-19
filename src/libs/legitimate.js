@@ -10,6 +10,7 @@
  * lo cual es una perdida de tiempo y recursos. Se debe emplear algún sistema de caché,
  * bien sea en memoria con node o utilizando redis.
  *
+ * @todo Legitimar el _account del device, también podría tener freeze:true
  * @param {Object} data Position
  * @module  legitimate
  */

@@ -4,8 +4,6 @@
  * al tipo de trama, que suele ser un valor númerico de 0 a 16. En el directorio
  * parsers existe un fichero para cada tipo de trama.
  *
- * Si una trama no tiene fichero
- *
  * @param  {[type]} app [description]
  * @return {[type]}     [description]
  */

@@ -37,7 +37,7 @@ module.exports = (app) => {
 
   /**
    * Se verifican dos cosas: que la cantidad de parámetros del mensaje corresponda
-   * con la definida en la propiedad trackKeys y que el cálculo del CRC sea válido.
+   * con la definida (13) y que el cálculo del CRC sea válido.
    *
    * TODO: se comprueba el número de parámetros pero no su contenido
    *

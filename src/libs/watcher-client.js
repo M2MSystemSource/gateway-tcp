@@ -4,7 +4,7 @@ module.exports = (app) => {
   /**
    * Utiliza la librería node-rest-client para hacer peticiones http.
    * @module api
-   * @fires  api-ready
+   * @fires  watcher-ready
    * @see    https://github.com/aacerox/node-rest-client
    */
   const api = {}
@@ -30,7 +30,7 @@ module.exports = (app) => {
           }
         })
         .on('error', (err) => {
-          console.log('err', err);
+          console.log('err', err)
         })
     } catch (e) {
       console.log('e', e)
