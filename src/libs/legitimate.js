@@ -16,13 +16,15 @@
  */
 module.exports = (app) => {
   const legitimate = (data, callback) => {
+    if (!data) return callback(new Error('No position'))
+
     app.db.get('devices')
       .findOne(
         {_id: data._device, freeze: false},
         {_id: 1},
         (err, device) => {
-          if (err || !device) return callback(err, null)
-          callback(null, data)
+          if (err || !device) return callback(err)
+          callback(null, data, device)
         })
   }
 
