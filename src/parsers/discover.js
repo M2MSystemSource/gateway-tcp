@@ -4,8 +4,8 @@
  * al tipo de trama, que suele ser un valor númerico de 0 a 16. En el directorio
  * parsers existe un fichero para cada tipo de trama.
  *
- * @param  {[type]} app [description]
- * @return {[type]}     [description]
+ * @param  {Object} app
+ * @return {Function}   Parser de la trama (null si no se encuentra uno)
  */
 module.exports = (app) => {
   const parsers = {
