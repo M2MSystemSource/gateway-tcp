@@ -1,5 +1,7 @@
+const assert = require('assert')
+
 /*
-  format: '2,101337.000,0039.5200,N,-0000.4541,W,1,8,1.43,94.0'
+  format: '2,101337.000,0039.5200,N,-0000.4541,W,1,8,1.43,94.0,3839'
 
   GGA          Global Positioning System Fix Data
   123519       Fix taken at 12:35:19 UTC
@@ -41,16 +43,27 @@ module.exports = (app) => {
 
     try {
       const t2 = t1[1].split(',')
+      const bat = t2.pop() || -1
 
-      // 6 fix quality; 7 number satelites; 8 hdop; 9 altitud, 10 high of geoid
+      assert.notEqual(null, t2[1])
+      assert.notEqual(null, t2[2])
+      assert.notEqual(null, t2[3])
+      assert.notEqual(null, t2[4])
+      assert.notEqual(null, t2[5])
+      assert.notEqual(null, t2[6])
+      assert.notEqual(null, t2[7])
+      assert.notEqual(null, t2[8])
+      assert.notEqual(null, t2[9])
+
+      // 6 fix quality; 7 number satelites; 8 hdop; 9 altitud
       const position = {
         _device: t1[0],
         gpstime: simcomTimeToTimestamp(t2[1]),
         servertime: Date.now(),
         data: {
           accel: [0, 0, 0],
-          alt: parseFloat(t2[9]) || -1,
-          battery: -1,
+          alt: parseFloat(t2[9]),
+          battery: parseFloat(bat),
           cog: -1,
           extra: '',
           gps: t2[8] || -1,
@@ -64,7 +77,7 @@ module.exports = (app) => {
 
     //
     } catch (err) {
-      console.log('[ERR] parse trama, invalid format')
+      console.log('[ERR] parse trama, invalid format', err)
     }
 
     return null
