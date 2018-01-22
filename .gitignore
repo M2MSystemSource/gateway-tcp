@@ -1,1 +1,3 @@
 node_modules
+src/conf/development.js
+src/conf/production.js
