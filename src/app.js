@@ -14,9 +14,14 @@ class Gateway extends EventEmitter {
     this.watcher = require('./libs/watcher-client')(this)
     this.messageParser = require('./libs/message-parser')(this)
     this.sendPosition = require('./libs/send-position')(this)
+    this.incomeData = require('./libs/income-data')(this)
     this.legitimate = require('./libs/legitimate')(this)
+    this.last = require('./libs/last-connection')(this)
     this.tcp = require('./libs/tcp')(this)
     this.parserDiscover = require('./parsers/discover')(this)
+
+    // la ip del servidor de monitoreo para excluir los pings de los logs
+    this.monitoringIp = '83.56.185.173'
   }
 }
 
