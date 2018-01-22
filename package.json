@@ -4,7 +4,7 @@
   "description": "",
   "main": "sub.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/mocha --reporter=nyan",
     "dev": "DEBUG=gwtcp PORT=3030 nodemon app.js"
   },
   "author": "",
@@ -16,21 +16,14 @@
     "mongodb": "^2.2.30",
     "mqtt": "^2.9.1",
     "neo-async": "^2.1.0",
-    "node-rest-client": "^3.1.0",
-    "redis": "^2.7.1"
+    "node-rest-client": "^3.1.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
-    "dirty-chai": "^1.2.2",
     "istanbul": "^0.4.5",
-    "jsdoc": "^3.4.3",
-    "jshint": "^2.9.4",
-    "mocha": "^3.2.0",
-    "nodev": "^0.8.8",
+    "mocha": "^3.5.3",
     "npm-run-all": "^4.0.1",
-    "nyc": "^10.1.2",
-    "plato": "^1.7.0",
-    "postman-jsdoc-theme": "git://github.com/jenguidanos/postman-jsdoc-theme.git"
+    "nyc": "^10.1.2"
   }
 }
