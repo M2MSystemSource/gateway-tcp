@@ -9,8 +9,8 @@ module.exports = (app) => {
     console.log('server listening to %j', server.address())
   })
 
-  function handleConnection (conn) {
-    const remoteAddress = conn.remoteAddress + ':' + conn.remotePort
+  function handleConnection (socket) {
+    const remoteAddress = socket.remoteAddress + ':' + socket.remotePort
 
     const echo = function () {
       if (remoteAddress.indexOf(app.monitoringIp) === -1) {
@@ -20,12 +20,19 @@ module.exports = (app) => {
 
     echo('new client connection from %s', remoteAddress)
 
-    conn.setEncoding('utf8')
+    socket.setEncoding('utf8')
 
-    conn.on('data', app.incomeData(conn))
-    conn.once('close', onConnClose)
-    conn.once('end', onConnEnd)
-    conn.on('error', onConnError)
+    socket.once('close', onConnClose)
+    socket.once('end', onConnEnd)
+    socket.on('error', onConnError)
+
+    // set timeout
+    socket.setTimeout(3000)
+    socket.on('timeout', () => {
+      console.log('socket timeout')
+      socket.write('timeout')
+      socket.end()
+    })
 
     function onConnClose () {
       echo('connection from %s closed', remoteAddress)
