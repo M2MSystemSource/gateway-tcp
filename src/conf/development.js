@@ -11,6 +11,8 @@ module.exports = {
   },
 
   watcher: {
-    url: 'http://localhost:3010/tracking'
+    tracking: 'http://localhost:3010/tracking',
+    sensing: 'http://localhost:3010/sensing',
+    gwtcpDebug: 'http://localhost:5050/gwtcpDebug'
   }
 }

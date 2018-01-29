@@ -14,21 +14,28 @@ function preValidate (data) {
 }
 
 module.exports = function (app) {
-  const incomeData = function (conn) {
-    const remoteAddress = conn.remoteAddress + ':' + conn.remotePort
+  const incomeData = function (socket) {
+    const remoteAddress = socket.remoteAddress + ':' + socket.remotePort
 
-    const echo = function () {
-      if (remoteAddress.indexOf(app.monitoringIp) === -1) {
-        debug.apply(null, arguments)
-      }
+    function echo (str, ...args) {
+      if (remoteAddress.indexOf(app.monitoringIp) > -1) return
+
+      const strFormatted = str
+        .split('%s')
+        .reduce((aggregate, chunk, i) => aggregate + chunk + (args[i] || ''), '')
+
+      console.log('strFormatted', strFormatted)
+
+      app.remoteDebug(strFormatted)
+      debug(strFormatted)
     }
 
     return function (data) {
       data = data.replace(',\u001a', '')
-      echo('connection data from %s: %j', remoteAddress, data)
+      echo('connection data from %s: %s', remoteAddress, data)
 
       if (!preValidate(data)) {
-        conn.write('ko 001')
+        socket.write('ko 001')
         echo('ko 001 - prevalidation')
         return
       }
@@ -36,7 +43,7 @@ module.exports = function (app) {
       // obtenemos el tipo de trama según notación de SIMCOM
       const parser = app.parserDiscover(data)
       if (!parser) {
-        conn.write('ko 002')
+        socket.write('ko 002')
         echo('ko 002 - invalid plot, no parser found')
         return
       }
@@ -53,12 +60,12 @@ module.exports = function (app) {
           // simplemente despreciamos la posición, pero se debería hacer algo,
           // por ejemplo informar al cliente vspotiía mqtt de que su posición no
           // es válida (enviar un mensaje al canal personal del dispositivo)
-          conn.write('ko 003')
-          return echo('ok 003 - Position not legitimate %s', err)
+          socket.write('ko 003')
+          return echo('ko 003 - Position not legitimate %s', err)
         }
 
         if (position.data.loc[0] === 0 && position.data.loc[1] === 0) {
-          conn.write('ko 004')
+          socket.write('ko 004')
           echo('ko 004 - invalid-location')
           return
         }
@@ -69,7 +76,7 @@ module.exports = function (app) {
         // Envia la posición al servidor de watchers
         app.watcher.post(position)
 
-        conn.write('okis')
+        socket.write('okis')
       })
     }
   }

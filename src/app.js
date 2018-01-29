@@ -12,6 +12,7 @@ class Gateway extends EventEmitter {
     this.db = require('./libs/db')(this)
     this.api = require('./libs/api-client')(this)
     this.watcher = require('./libs/watcher-client')(this)
+    this.watcherdebug = require('./libs/watcher-debug')(this)
     this.messageParser = require('./libs/message-parser')(this)
     this.sendPosition = require('./libs/send-position')(this)
     this.incomeData = require('./libs/income-data')(this)
