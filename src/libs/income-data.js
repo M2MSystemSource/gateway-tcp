@@ -7,8 +7,8 @@ function preValidate (data) {
     return false
   }
 
-  const data = trama[1].split(',')
-  if (split.length !== 9 || split.length !== 10) {
+  const plot = trama[1].split(',')
+  if (plot.length !== 9 || plot.length !== 10) {
     return false
   }
 
