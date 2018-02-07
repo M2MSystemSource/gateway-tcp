@@ -26,6 +26,32 @@ const assert = require('assert')
   (empty field) time in seconds since last DGPS update
   (empty field) DGPS station ID number
   *47          the checksum data, always begins with *
+
+  //
+  2
+  143846.000
+  0039.5199
+  N
+  -0000.4542
+  W
+  1
+  14
+  0.82
+  85.
+
+  //
+  2
+  000017.000
+  0000.0000
+  N
+  00000.0000
+  E
+  0
+  0
+  0.0
+  M
+  0.
+
  */
 module.exports = (app) => {
   const getDeviceId = (index) => {
@@ -46,36 +72,39 @@ module.exports = (app) => {
   }
 
   return (data) => {
-    const t1 = data.split('|')
+    const trama = data.split('|')
 
     try {
-      const t2 = t1[1].split(',')
-      const bat = t2.pop() || -1
+      const data = trama[1].split(',')
+      const bat = trama[2].split(',')
 
-      assert.notEqual(null, t2[1])
-      assert.notEqual(null, t2[2])
-      assert.notEqual(null, t2[3])
-      assert.notEqual(null, t2[4])
-      assert.notEqual(null, t2[5])
-      assert.notEqual(null, t2[6])
-      assert.notEqual(null, t2[7])
-      assert.notEqual(null, t2[8])
-      assert.notEqual(null, t2[9])
+      const vbat = bat[0]
+      const vin = bat[1]
+
+      assert.notEqual(null, data[1])
+      assert.notEqual(null, data[2])
+      assert.notEqual(null, data[3])
+      assert.notEqual(null, data[4])
+      assert.notEqual(null, data[5])
+      assert.notEqual(null, data[6])
+      assert.notEqual(null, data[7])
+      assert.notEqual(null, data[8])
+      assert.notEqual(null, data[9])
 
       // 6 fix quality; 7 number satelites; 8 hdop; 9 altitud
       const position = {
-        _device: getDeviceId(t1[0]),
-        gpstime: simcomTimeToTimestamp(t2[1]),
+        _device: getDeviceId(trama[0]),
+        gpstime: simcomTimeToTimestamp(data[1]),
         servertime: Date.now(),
         data: {
           accel: [0, 0, 0],
-          alt: parseFloat(t2[9]),
-          battery: parseFloat(bat),
+          alt: parseFloat(data[9]),
+          battery: parseFloat(vbat),
           cog: -1,
-          extra: '',
-          gps: t2[8] || -1,
+          extra: parseFloat(vin),
+          gps: data[8] || -1,
           gsm: -1,
-          loc: [parseFloat(t2[4]), parseFloat(t2[2])],
+          loc: [parseFloat(data[4]), parseFloat(data[2])],
           speed: -1
         }
       }
