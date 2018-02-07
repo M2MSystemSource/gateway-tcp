@@ -28,6 +28,13 @@ const assert = require('assert')
   *47          the checksum data, always begins with *
  */
 module.exports = (app) => {
+  const getDeviceId = (index) => {
+    index = parseInt(index, 10)
+    const ids = ['861510030805218']
+
+    return ids[index] || index.toString()
+  }
+
   function simcomTimeToTimestamp (time) {
     const now = new Date(Date.now())
 
@@ -57,7 +64,7 @@ module.exports = (app) => {
 
       // 6 fix quality; 7 number satelites; 8 hdop; 9 altitud
       const position = {
-        _device: t1[0],
+        _device: getDeviceId(t1[0]),
         gpstime: simcomTimeToTimestamp(t2[1]),
         servertime: Date.now(),
         data: {

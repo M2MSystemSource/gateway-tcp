@@ -22,12 +22,13 @@ module.exports = (app) => {
 
     socket.setEncoding('utf8')
 
+    socket.on('data', app.incomeData(socket))
     socket.once('close', onConnClose)
     socket.once('end', onConnEnd)
     socket.on('error', onConnError)
 
     // set timeout
-    socket.setTimeout(3000)
+    socket.setTimeout(120000)
     socket.on('timeout', () => {
       console.log('socket timeout')
       socket.write('timeout')
@@ -35,11 +36,11 @@ module.exports = (app) => {
     })
 
     function onConnClose () {
-      echo('connection from %s closed', remoteAddress)
+      // echo('connection from %s closed', remoteAddress)
     }
 
     function onConnEnd () {
-      echo('connection from %s ended', remoteAddress)
+      // echo('connection from %s ended', remoteAddress)
     }
 
     function onConnError (err) {

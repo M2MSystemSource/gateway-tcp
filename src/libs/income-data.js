@@ -24,8 +24,6 @@ module.exports = function (app) {
         .split('%s')
         .reduce((aggregate, chunk, i) => aggregate + chunk + (args[i] || ''), '')
 
-      console.log('strFormatted', strFormatted)
-
       app.remoteDebug(strFormatted)
       debug(strFormatted)
     }
