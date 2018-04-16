@@ -32,7 +32,7 @@ module.exports = {
       ref: 'origin/master',
       repo: 'git@github.com:M2MSystemSource/gateway-tcp.git',
       path: '/var/m2m/gateway-tcp',
-      'post-deploy': 'npm install && pm2 gracefulReload gwtcp --env production'
+      'post-deploy': 'pm2 gracefulReload gwtcp --env production'
     }
   }
 }
