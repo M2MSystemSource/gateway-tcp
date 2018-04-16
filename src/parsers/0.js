@@ -16,7 +16,6 @@ module.exports = (app) => {
   }
 
   return (data) => {
-    console.log('sdkfsdfkasd')
     var result = null
     var err = '[ERR] parse trama, invalid format'
 

@@ -20,40 +20,29 @@ module.exports = (app) => {
   }
 
   return (data) => {
-    const trama = data.split('|')
+    const plot = data.split('|')
 
-    try {
-      const data = trama[1].split(',')
-      const bat = trama[2].split(',')
+    const trama = plot[1].split(',')
+    const bat = plot[2].split(',')
 
-      const vbat = bat[0] || 0
-      const vin = bat[1] || 0
+    const vbat = bat[0] || 0
+    const vin = bat[1] || 0
 
-      // 6 fix quality; 7 number satelites; 8 hdop; 9 altitud
-      const position = {
-        _device: getDeviceId(trama[0]),
-        gpstime: simcomTimeToTimestamp(data[1]),
-        servertime: Date.now(),
-        data: {
-          accel: [0, 0, 0],
-          alt: 0,
-          battery: parseFloat(vbat),
-          cog: -1,
-          extra: parseFloat(vin),
-          gps: -1,
-          gsm: -1,
-          loc: [0, 0],
-          speed: -1
-        }
+    return {
+      _device: getDeviceId(plot[0]),
+      gpstime: simcomTimeToTimestamp(trama[1]),
+      servertime: Date.now(),
+      data: {
+        accel: [0, 0, 0],
+        alt: 0,
+        battery: parseFloat(vbat),
+        cog: -1,
+        extra: parseFloat(vin),
+        gps: -1,
+        gsm: -1,
+        loc: [0, 0],
+        speed: -1
       }
-
-      return position
-
-    //
-    } catch (err) {
-      console.log('[ERR] parse trama, invalid format', err)
     }
-
-    return null
   }
 }
