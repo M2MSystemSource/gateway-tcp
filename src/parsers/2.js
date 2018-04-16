@@ -78,8 +78,8 @@ module.exports = (app) => {
       const data = trama[1].split(',')
       const bat = trama[2].split(',')
 
-      const vbat = bat[0]
-      const vin = bat[1]
+      const vbat = bat[0] || 0
+      const vin = bat[1] || 0
 
       assert.notEqual(null, data[1])
       assert.notEqual(null, data[2])
@@ -104,7 +104,7 @@ module.exports = (app) => {
           extra: parseFloat(vin),
           gps: data[8] || -1,
           gsm: -1,
-          loc: [parseFloat(data[4]), parseFloat(data[2])],
+          loc: [parseFloat(data[4]) || 0, parseFloat(data[2]) || 0],
           speed: -1
         }
       }

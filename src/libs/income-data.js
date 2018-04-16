@@ -1,14 +1,8 @@
 const debug = require('debug')('gwtcp')
 
 function preValidate (data) {
-  // ejem: 1|2,145139.000,0039.5200,N,-0000.4542,W,1,14,0.78,87.|3710,65336
   const trama = data.split('|')
   if (trama.length !== 3) {
-    return false
-  }
-
-  const plot = trama[1].split(',')
-  if (plot.length >= 8) {
     return false
   }
 

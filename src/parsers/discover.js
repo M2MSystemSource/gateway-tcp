@@ -10,11 +10,16 @@
 module.exports = (app) => {
   const parsers = {
     '0': require([__dirname, '0.js'].join('/'))(app),
-    '2': require([__dirname, '2.js'].join('/'))(app)
+    '2': require([__dirname, '2.js'].join('/'))(app),
+    'empty': require([__dirname, 'empty.js'].join('/'))(app)
   }
 
   return (data) => {
     const trama = data.split('|')[1].split(',')
+
+    if (!trama[0] === '0') {
+      return parsers['empty']
+    }
 
     switch (trama[0]) {
       case '0':
