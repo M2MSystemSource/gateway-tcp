@@ -61,6 +61,10 @@ module.exports = function (app) {
           return
         }
 
+        // la posicion es válida, la filtramos si fuera necesario
+        position = app.filterPosition(device, position)
+
+        // enviamos last connection
         app.last(position, device)
 
         if (err || !position) {
@@ -76,9 +80,6 @@ module.exports = function (app) {
           echo('ko 004 - invalid-location')
           return
         }
-
-        // la posicion es válida, la filtramos si fuera necesario
-        position = app.filterPosition(device, position)
 
         // envia la posición a la Api de M2M
         app.sendPosition(position)
