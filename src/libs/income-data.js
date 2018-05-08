@@ -55,9 +55,13 @@ module.exports = function (app) {
       const position = parser(data)
 
       app.legitimate(position, (err, position, device) => {
-        if (device) {
-          app.last(position, device)
+        if (!device) {
+          socket.write('ko 004')
+          echo('ko 004 - invalid-location')
+          return
         }
+
+        app.last(position, device)
 
         if (err || !position) {
           // simplemente despreciamos la posición, pero se debería hacer algo,
@@ -72,6 +76,9 @@ module.exports = function (app) {
           echo('ko 004 - invalid-location')
           return
         }
+
+        // la posicion es válida, la filtramos si fuera necesario
+        position = app.filterPosition(device, position)
 
         // envia la posición a la Api de M2M
         app.sendPosition(position)
