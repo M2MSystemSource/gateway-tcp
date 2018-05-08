@@ -9,20 +9,9 @@ module.exports = (app) => {
     return ids[index] || index.toString()
   }
 
-  function simcomTimeToTimestamp (time) {
-    const now = new Date(Date.now())
-
-    now.setHours(time.slice(0, 2))
-    now.setMinutes(time.slice(2, 4))
-    now.setSeconds(time.slice(4, 6))
-
-    return now.getTime()
-  }
-
   return (data) => {
     const plot = data.split('|')
 
-    const trama = plot[1].split(',')
     const bat = plot[2].split(',')
 
     const vbat = bat[0] || 0
@@ -30,7 +19,7 @@ module.exports = (app) => {
 
     return {
       _device: getDeviceId(plot[0]),
-      gpstime: simcomTimeToTimestamp(trama[1]),
+      gpstime: -1,
       servertime: Date.now(),
       data: {
         accel: [0, 0, 0],
