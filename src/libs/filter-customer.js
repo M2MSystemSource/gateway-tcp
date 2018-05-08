@@ -68,7 +68,7 @@ module.exports = (app) => {
    * @param  {Object} position Posición según modelo de datos en la Api
    * @return {Object}          Posición rectificada
    */
-  app.filterPosition = (device, position) => {
+  return (device, position) => {
     Object.keys(devicesToFilter).forEach((filter) => {
       if (!filters.hasOwnProperty(filter)) return
       if (devicesToFilter[filter].indexOf(device._id) === -1) return

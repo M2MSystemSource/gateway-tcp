@@ -19,6 +19,7 @@ class Gateway extends EventEmitter {
     this.legitimate = require('./libs/legitimate')(this)
     this.last = require('./libs/last-connection')(this)
     this.tcp = require('./libs/tcp')(this)
+    this.filterPosition = require('./libs/filter-customer')(this)
     this.parserDiscover = require('./parsers/discover')(this)
 
     // la ip del servidor de monitoreo para excluir los pings de los logs
