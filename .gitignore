@@ -1,3 +1,5 @@
 node_modules
 src/conf/development.js
 src/conf/production.js
+sftp-config.json
+deployment-config.json
