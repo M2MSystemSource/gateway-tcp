@@ -17,7 +17,7 @@ module.exports = (app) => {
   return (data) => {
     const trama = data.split('|')[1].split(',')
 
-    if (!trama[0] === '0') {
+    if (trama[0] === '0') {
       return parsers['empty']
     }
 
