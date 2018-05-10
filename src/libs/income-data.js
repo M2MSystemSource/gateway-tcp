@@ -57,7 +57,7 @@ module.exports = function (app) {
       app.legitimate(position, (err, position, device) => {
         if (!device) {
           socket.write('ko 004')
-          echo('ko 004 - invalid-location')
+          echo('%s - ko 005 - device not found', device.name)
           return
         }
 
@@ -72,12 +72,12 @@ module.exports = function (app) {
           // por ejemplo informar al cliente vspotiía mqtt de que su posición no
           // es válida (enviar un mensaje al canal personal del dispositivo)
           socket.write('ko 003')
-          return echo('ko 003 - Position not legitimate %s', err)
+          return echo('%s - ko 003 - Position not legitimate %s', device.name, err)
         }
 
         if (position.data.loc[0] === 0 && position.data.loc[1] === 0) {
           socket.write('ko 004')
-          echo('ko 004 - invalid-location')
+          echo('%s - ko 004 - invalid-location', device.name)
           return
         }
 
@@ -88,6 +88,7 @@ module.exports = function (app) {
         app.watcher.post(position)
 
         socket.write('okis')
+        echo('%s - okis', device.name)
       })
     }
   }
