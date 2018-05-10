@@ -18,7 +18,7 @@ module.exports = (app) => {
       }
     }
 
-    echo('new client connection from %s', remoteAddress)
+    // echo('new client connection from %s', remoteAddress)
 
     socket.setEncoding('utf8')
 

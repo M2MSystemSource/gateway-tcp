@@ -35,7 +35,7 @@ module.exports = function (app) {
 
     return function (data) {
       data = data.replace(',\u001a', '')
-      echo('connection data from %s: %s', remoteAddress, data)
+      echo('→', remoteAddress, data)
 
       if (!preValidate(data)) {
         socket.write('ko 001')
