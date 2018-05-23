@@ -35,6 +35,8 @@ module.exports = function (app) {
 
     return function (data) {
       data = data.replace(',\u001a', '')
+      console.log(' ')
+      console.log('------------------------------------------------')
       echo('→ %s', data)
 
       if (!preValidate(data)) {
