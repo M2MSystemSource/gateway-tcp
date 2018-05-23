@@ -7,9 +7,9 @@ module.exports = {
     name: 'gwtcp',
     script: '/var/m2m/gateway-tcp/source/app.js',
     restart_delay: 1000,
-    instances: 1,
+    instances: 0,
     max_restarts: 0,
-    exec_mode: 'fork',
+    exec_mode: 'cluster',
     env: {
       PORT: 9000,
       DEBUG: 'gwtcp*',
