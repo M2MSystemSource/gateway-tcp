@@ -72,15 +72,9 @@ module.exports = function (app) {
         if (err || !position) {
           // simplemente despreciamos la posición, pero se debería hacer algo,
           // por ejemplo informar al cliente vspotiía mqtt de que su posición no
-          // es válida (enviar un mensaje al canal personal del dispositivo)
+          // es válida (enviar un mensaje alpm2  canal personal del dispositivo)
           socket.write('ko 003')
           return echo('%s - ko 003 - Position not legitimate %s', device.name, err)
-        }
-
-        if (position.data.loc[0] === 0 && position.data.loc[1] === 0) {
-          socket.write('ko 004')
-          echo('%s - ko 004 - invalid-location', device.name)
-          return
         }
 
         // envia la posición a la Api de M2M
@@ -89,8 +83,13 @@ module.exports = function (app) {
         // Envia la posición al servidor de watchers
         app.watcher.post(position)
 
-        socket.write('okis')
-        echo('%s - okis', device.name)
+        if (position.data.loc[0] === 0 && position.data.loc[1] === 0) {
+          socket.write('ko 004')
+          echo('%s - ko 004 - invalid-location', device.name)
+        } else {
+          socket.write('okis')
+          echo('%s - okis', device.name)
+        }
       })
     }
   }
