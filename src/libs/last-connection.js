@@ -20,6 +20,7 @@ module.exports = (app) => {
       // Se mantiene "extra" por retro-compatibilidad
       update['tracking.data.extra'] = position.data.extra
       update['tracking.data.extbatt'] = position.data.extra
+      update['tracking.data.gps'] = 0
     } else {
       // POSICIóN y BATERÍA
       update['tracking.gpstime'] = position.gpstime
@@ -30,22 +31,6 @@ module.exports = (app) => {
     app.db.get('devices').updateOne(
       {_id: device._id},
       {$set: update},
-      function (err, device) {
-        if (err) return console.log('err', err)
-      }
-    ) // updateOne
-  }
-}
-
-module.exports = (app) => {
-  return function (position, device, cb = function () {}) {
-    const now = Date.now()
-    app.db.get('devices').updateOne(
-      {_id: device._id},
-      {$set: {
-        'tracking.servertime': now,
-        'tracking.data.battery': position.data.battery || -1
-      }},
       function (err, device) {
         if (err) return console.log('err', err)
       }
