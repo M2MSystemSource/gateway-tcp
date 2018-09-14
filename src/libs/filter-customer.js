@@ -91,7 +91,7 @@ module.exports = (app) => {
      */
     vinRectifier: (position) => {
       const intLimit = 32767 // valor máximo del tipo de dato INT en chips de 8bits
-      const vin = parseInt(position.data.extbattery, 10) // vIn original de la posición
+      const vin = parseFloat(position.data.extbattery) // vIn original de la posición
 
       // si es negativo aplicamos fórmula para compensar el desbordamiento de
       // variable int en firmware
