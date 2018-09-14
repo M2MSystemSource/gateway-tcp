@@ -21,8 +21,8 @@ module.exports = (app) => {
       servertime: Date.now(),
       data: {
         alt: parseInt(messageParts[5], 10),
-        battery: parseInt(messageParts[10], 10),
-        extbattery: parseInt(messageParts[11], 10),
+        battery: parseFloat(messageParts[10]),
+        extbattery: parseFloat(messageParts[11]),
         cog: parseInt(messageParts[6], 10),
         gps: parseInt(messageParts[9], 10),
         gsm: parseInt(messageParts[8], 10),
