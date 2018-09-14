@@ -20,15 +20,14 @@ module.exports = (app) => {
       gpstime: messageParts[1],
       servertime: Date.now(),
       data: {
-        accel: messageParts[7],
-        alt: parseFloat(messageParts[5]),
-        battery: parseFloat(messageParts[10]),
-        cog: parseFloat(messageParts[6]),
-        extra: messageParts[11],
-        gps: parseFloat(messageParts[9]),
-        gsm: parseFloat(messageParts[8]),
+        alt: parseInt(messageParts[5], 10),
+        battery: parseInt(messageParts[10], 10),
+        extbattery: parseInt(messageParts[11], 10),
+        cog: parseInt(messageParts[6], 10),
+        gps: parseInt(messageParts[9], 10),
+        gsm: parseInt(messageParts[8], 10),
         loc: [parseFloat(messageParts[2]), parseFloat(messageParts[3])],
-        speed: parseFloat(messageParts[4])
+        speed: parseInt(messageParts[4], 10)
       }
     }
 

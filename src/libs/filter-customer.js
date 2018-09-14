@@ -83,7 +83,7 @@ module.exports = (app) => {
    */
   const filters = {
     /**
-     * Rectifica el valor de la batería externa (position.data.extra) para
+     * Rectifica el valor de la batería externa (position.data.extbattery) para
      * compensar el fallo en el firmware de estos dispositivos por el cual
      * se obtienen valores negativos en batería
      * @param  {Object} position Posición según modelo de datos en la Api
@@ -91,17 +91,17 @@ module.exports = (app) => {
      */
     vinRectifier: (position) => {
       const intLimit = 32767 // valor máximo del tipo de dato INT en chips de 8bits
-      const vin = parseInt(position.data.extra, 10) // vIn original de la posición
+      const vin = parseInt(position.data.extbattery, 10) // vIn original de la posición
 
       // si es negativo aplicamos fórmula para compensar el desbordamiento de
       // variable int en firmware
       if (vin < 0) {
         const x = vin + intLimit
-        position.data.extra = x + intLimit
+        position.data.extbattery = x + intLimit
 
       // si es menor que 9000 indica un valor de lectura residual, lo dejamos a cero
       } else if (vin < 9000) {
-        position.data.extra = 0
+        position.data.extbattery = 0
       }
 
       return position

@@ -16,10 +16,10 @@ module.exports = (app) => {
       update['tracking.servertime'] = now
       update['tracking.data.battery'] = position.data.battery
       // para la batería externa inicialmente se utilizó el campo extra.
-      // luego se añadió "extbatt" para darle entidad propia.
+      // luego se añadió "extbattery" para darle entidad propia.
       // Se mantiene "extra" por retro-compatibilidad
       update['tracking.data.extra'] = position.data.extra
-      update['tracking.data.extbatt'] = position.data.extra
+      update['tracking.data.extbattery'] = position.data.extra
       update['tracking.data.gps'] = 0
     } else {
       // POSICIóN y BATERÍA
