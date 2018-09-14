@@ -48,8 +48,6 @@ module.exports = (app) => {
         // Se debe enviar notificación a algún canal
       }
 
-      console.log('send-position', position)
-
       const args = {
         data: position,
         headers: {'Content-Type': 'application/json'}
